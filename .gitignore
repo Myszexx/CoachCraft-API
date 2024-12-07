@@ -1,6 +1,6 @@
 
 /.venv/
-    CoachCraftAPI/CoachCraftAPI/.env
+    API/.env
     __pycache__
     .vscode/
     static_cdn/
@@ -92,4 +92,35 @@
     .ropeproject
 
     db.sq
-/CoachCraftAPI/CoachCraftAPI/.env
+/API/.env
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django
+*.log
+*.sqlite3
+db.sqlite3
+
+# Virtual environment
+.venv/
+venv/
+
+# IDEs
+.idea/
+.vscode/
+
+# Miscellaneous
+*.env
+*.bak
+*.swp
