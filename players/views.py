@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from players.models import Player, Ratings
 from players.serializers import PlayerSerializer, RatingsSerializer
 from rest_framework import status
-from rest_framework import  mixins, generics
+from rest_framework import generics
 from rest_framework.response import Response
 # Create your views here.
 
@@ -50,23 +50,16 @@ class PlayerDetailAV(APIView):
         player.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class RatingsList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+class RatingsList(generics.ListCreateAPIView):
     queryset = Ratings.objects.all()
     serializer_class = RatingsSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-class PlayerRatings(mixins.RetrieveModelMixin,generics.GenericAPIView):
+class PlayerRatings(generics.RetrieveAPIView):
     queryset = Ratings.objects.all()
     serializer_class = RatingsSerializer
     lookup_field = 'player_id'
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
     #
     # def put(self, request, *args, **kwargs):
     #     return self.update(request, *args, **kwargs)
