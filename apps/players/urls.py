@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.players.views import player_list, player_details
+from apps.players.views import PlayerListAV, PlayerDetailAV
+
+# from apps.players.views import player_list, player_details
 
 urlpatterns = [
-    path('', player_list, name='players'),
-    path('<int:pk>', player_details, name='player_details'),
+    path('', PlayerListAV.as_view(), name='players'),
+    path('<int:pk>', PlayerDetailAV.as_view(), name='player_details'),
 ]
