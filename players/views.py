@@ -2,9 +2,12 @@ from django.shortcuts import render
 # from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from apps.players.models import Player
-from apps.players.serializers import PlayerSerializer
+from players.models import Player, Ratings
+from players.serializers import PlayerSerializer, RatingsSerializer
 from rest_framework import status
+from rest_framework import  mixins, generics
+from rest_framework.response import Response
+# Create your views here.
 
 
 # Create your views here.
@@ -47,22 +50,12 @@ class PlayerDetailAV(APIView):
         player.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class RatingsList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+    queryset = Ratings.objects.all()
+    serializer_class = RatingsSerializer
 
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
-# @api_view(['GET','PUT','DELETE'])
-# def player_details(request, pk):
-#     try:
-#         player = Player.objects.get(pk=pk)
-#     except Player.DoesNotExist:
-#         return Response({"Error":"Player not found"},status=status.HTTP_404_NOT_FOUND)
-#     if request.method == 'GET':
-#         serializer = PlayerSerializer(player)
-#         return Response(serializer.data)
-#     elif request.method == 'PUT':
-#         serializer = PlayerSerializer(player, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#     elif request.method == 'DELETE':
-#         player.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
