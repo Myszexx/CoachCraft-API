@@ -59,3 +59,19 @@ class RatingsList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generic
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+class PlayerRatings(mixins.RetrieveModelMixin,generics.GenericAPIView):
+    queryset = Ratings.objects.all()
+    serializer_class = RatingsSerializer
+    lookup_field = 'player_id'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    #
+    # def put(self, request, *args, **kwargs):
+    #     return self.update(request, *args, **kwargs)
+    #
+    # def delete(self, request, *args, **kwargs):
+    #     return self.destroy(request, *args, **kwargs)
+
+#TODO Dodac obsluge wybierania ratingu danego zawodnika z danego meczu/treningu
