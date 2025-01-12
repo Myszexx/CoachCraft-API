@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from players.models import Player, Ratings
+from players.models import Players, Ratings
 from .utils import calculate_age, is_youth_player  # Import the function
 
 
-class PlayerSerializer(serializers.ModelSerializer):
+class PlayersSerializer(serializers.ModelSerializer):
     player_age = serializers.SerializerMethodField()
     is_youngster = serializers.SerializerMethodField()
 
     class Meta:
-        model = Player
+        model = Players
         fields = '__all__'
         # exclude #jezeli jest all
 
