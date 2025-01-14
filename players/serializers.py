@@ -19,6 +19,7 @@ class PlayersSerializer(serializers.ModelSerializer):
         return is_youth_player(obj.birthdate)
 
 class RatingsSerializer(serializers.ModelSerializer):
+    rating_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Ratings
         fields = '__all__'
