@@ -3,16 +3,30 @@
 This repository contains the backend API for the CoachCraft project, built with Django Rest Framework (DRF).
 
 ## Features
-- Manage football teams, players, and matches.
-- Player rating system for matches and training sessions.
-- Authentication and authorization (OAuth2 support).
+### Core
+- Authentication and authorization (JWT Token)
+- OAuth 2.0 support (TBA)
+- Create and manage your coach profile 
+### Players
+- Manage players
+- Rate player performance in matches and training sessions
+### Teams
+- Manage teams (squads, staff, etc.)
+- Register training sessions, including player attendance and performance ratings
+- Affiliate players with a specific team, including contract options
+### Matches
+- Create and manage matches
+- Add match squads with player positions
+- Register match events (e.g., substitutions)
+
+
 
 ## Technologies
 
-- Python (Django)
+- Python Django, Django REST Framework
 - PostgreSQL (or MariaDB for prototyping)
 - **Machine Learning**: TBD (optional)
-- Hosted on TrueNAS with Docker
+- Hosted on TrueNAS server, deployed with Docker
 
 
 ## Contributing

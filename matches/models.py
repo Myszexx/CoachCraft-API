@@ -35,3 +35,13 @@ class MatchEvents(models.Model):
     class Meta:
         managed = False
         db_table = 'match_events'
+
+class MatchEventTypes(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=1024)
+    icon = models.CharField(max_length=1024, blank=True, null=True)
+    type = models.CharField(max_length=1024)
+
+    class Meta:
+        managed = False
+        db_table = 'match_event_types'

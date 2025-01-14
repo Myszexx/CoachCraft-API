@@ -65,6 +65,7 @@ db.sqlite3
 *.swp
 
 # Specific folders and files
+/trash/
 static_cdn/
 media/*
 /API/.env
@@ -94,4 +95,3 @@ celerybeat-schedule
 
 # Database backups
 *.sq
-/trash/
