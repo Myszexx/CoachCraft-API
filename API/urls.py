@@ -21,10 +21,10 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('core/', include('core.urls')),
-    path('players/', include('players.urls')),
-    path('matches/', include('matches.urls')),
-    path('teams/', include('teams.urls')),
+    path('core/', include('apps.core.urls')),
+    path('players/', include('apps.players.urls')),
+    path('matches/', include('apps.matches.urls')),
+    path('teams/', include('apps.teams.urls')),
     # path('players/', include('apps.players.urls')),
 ]
 

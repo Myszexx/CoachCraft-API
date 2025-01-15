@@ -3,8 +3,8 @@ from rest_framework import generics, viewsets, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.request import Request
-from players.models import Players, Ratings
-from players.serializers import PlayersSerializer, RatingsSerializer
+from apps.players.models import Players, Ratings
+from apps.players.serializers import PlayersSerializer, RatingsSerializer
 from API.permissions import RatingUserOrAdmin
 
 

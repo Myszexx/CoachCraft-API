@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from players.models import Players, Ratings
+from apps.players.models import Players, Ratings
 from .utils import calculate_age, is_youth_player  # Import the function
 
 

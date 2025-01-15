@@ -1,9 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-
-from players.models import Players
-from players.serializers import PlayersSerializer
-from teams.models import Teams, Trainings, PlayersAffilations, TeamSquad
+from apps.teams.models import Teams, Trainings, PlayersAffilations, TeamSquad
 
 
 class PlayersAffilationsSerializer(serializers.ModelSerializer):

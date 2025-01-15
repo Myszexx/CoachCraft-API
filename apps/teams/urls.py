@@ -1,5 +1,5 @@
 from django.urls import path, include
-from teams.views import TeamListV, TeamDetailV, PlayersAffiliationsV, PlayersAffiliationsCreateV, EndPlayerAffiliation
+from apps.teams.views import TeamListV, TeamDetailV, PlayersAffiliationsV, PlayersAffiliationsCreateV, EndPlayerAffiliation
 
 urlpatterns = [
     path('' , TeamListV.as_view(), name='teams_list'),

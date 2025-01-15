@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from matches.models import Matches, MatchSquad, MatchEvents, MatchEventTypes
+from apps.matches.models import Matches, MatchSquad, MatchEvents, MatchEventTypes
 
 
 class MatchesSerializer(serializers.ModelSerializer):

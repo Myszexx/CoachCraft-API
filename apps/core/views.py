@@ -2,9 +2,9 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_403_FORBIDDEN
 
-from core.models import AuthUser
-from core.serializers import RegistrationSerializer
-from core.utils import get_tokens_for_user
+from apps.core.models import AuthUser
+from apps.core.serializers import RegistrationSerializer
+from apps.core.utils import get_tokens_for_user
 from rest_framework.response import Response
 
 class RegistrationV(generics.CreateAPIView):

@@ -13,7 +13,7 @@ class Teams(models.Model):
 #VW
 class TeamSquad(models.Model):
     id = models.AutoField(primary_key=True)
-    player = models.ForeignKey("players.players", models.DO_NOTHING, related_name='player_set')
+    player = models.ForeignKey("apps.players.Players", models.DO_NOTHING, related_name='player_set')
     team = models.ForeignKey(Teams, models.DO_NOTHING)
     class Meta:
         managed = False
@@ -27,7 +27,7 @@ class TeamSquad(models.Model):
 
 
 class PlayersAffilations(models.Model):
-    player = models.ForeignKey("players.Players", models.DO_NOTHING)
+    player = models.ForeignKey("apps.players.Players", models.DO_NOTHING)
     team = models.ForeignKey('Teams', models.DO_NOTHING)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
@@ -40,7 +40,7 @@ class PlayersAffilations(models.Model):
 
 class Trainings(models.Model):
     id = models.AutoField(primary_key=True)
-    team = models.ForeignKey("teams.Teams", models.DO_NOTHING)
+    team = models.ForeignKey("apps.teams.Teams", models.DO_NOTHING)
     timestamp = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -52,7 +52,7 @@ class Trainings(models.Model):
 class TrainingSquad(models.Model):
     appearance_id = models.AutoField(primary_key=True)
     training = models.ForeignKey(Trainings, models.DO_NOTHING)
-    player = models.ForeignKey("players.players", models.DO_NOTHING)
+    player = models.ForeignKey("apps.players.Players", models.DO_NOTHING)
 
     class Meta:
         managed = True
@@ -60,7 +60,7 @@ class TrainingSquad(models.Model):
 
 
 class UserTeams(models.Model):
-    user = models.ForeignKey("core.AuthUser", models.DO_NOTHING)
+    user = models.ForeignKey("apps.core.AuthUser", models.DO_NOTHING)
     team = models.ForeignKey(Teams, models.DO_NOTHING)
 
     class Meta:

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from players.views import RatingsList, PlayerMVS, RatingsCreate
+from apps.players.views import RatingsList, PlayerMVS, RatingsCreate
 
 # from players.views import player_list, player_details
 

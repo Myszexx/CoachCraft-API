@@ -22,7 +22,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-from core.views import RegistrationV
+from apps.core.views import RegistrationV
 
 urlpatterns = [
     path('registration/', RegistrationV.as_view(), name='registration'),

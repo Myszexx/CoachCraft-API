@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from matches.views import MatchListV, MatchDetailV, MatchSquadV, MatchEventsV
+from apps.matches.views import MatchListV, MatchDetailV, MatchSquadV, MatchEventsV
 
 urlpatterns = [
     path('', MatchListV.as_view(), name='matches_list'),

@@ -1,7 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from teams.models import Teams, PlayersAffilations, TeamSquad
-from teams.serizalizers import TeamSerializer, PlayersAffilationsSerializer, TeamDetailsSerializer
+from apps.teams.models import Teams, PlayersAffilations, TeamSquad
+from apps.teams.serizalizers import TeamSerializer, PlayersAffilationsSerializer, TeamDetailsSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 class TeamListV(generics.ListCreateAPIView):

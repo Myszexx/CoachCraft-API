@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-from matches.models import Matches, MatchSquad
-from matches.serializers import MatchesSerializer, MatchSquadSerializer
+from apps.matches.models import Matches, MatchSquad
+from apps.matches.serializers import MatchesSerializer, MatchSquadSerializer
 
 
 
