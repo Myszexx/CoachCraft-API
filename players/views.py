@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from players.models import Players, Ratings
 from players.serializers import PlayersSerializer, RatingsSerializer
+from API.permissions import RatingUserOrAdmin
 
 
 # Create your views here.
@@ -24,6 +25,7 @@ class RatingsList(generics.ListAPIView):
 class RatingsCreate(generics.CreateAPIView):
     queryset = Ratings.objects.all()
     serializer_class = RatingsSerializer
+    permission_classes = [RatingUserOrAdmin]
 
     def perform_create(self, serializer):
         match_id = self.kwargs.get('match_id')
