@@ -26,8 +26,7 @@ class RegistrationV(generics.CreateAPIView):
             data['response'] = ['Account created successfully']
             data['email'] = [account.email]
             data['username'] = [account.username]
-            data['refresh'] = token.get('refresh')
-            data['access'] = token.get('access')
+            data['token'] = token
         else:
             return Response(serializer.errors)
         return Response(data, status=HTTP_201_CREATED)
