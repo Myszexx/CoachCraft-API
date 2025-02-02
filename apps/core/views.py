@@ -26,6 +26,7 @@ class RegistrationV(generics.CreateAPIView):
             data['response'] = ['Account created successfully']
             data['email'] = [account.email]
             data['username'] = [account.username]
+            data['user_id'] = [account.id]
             data['token'] = token
         else:
             return Response(serializer.errors)
