@@ -22,12 +22,12 @@ class RegistrationV(generics.CreateAPIView):
                 return Response(data, status=HTTP_403_FORBIDDEN)
             print("PERFORM")
             account = serializer.save()
-            token = get_tokens_for_user(account.user_id)
+            token = get_tokens_for_user(account)
             data['response'] = ['Account created successfully']
             data['email'] = [account.email]
             data['username'] = [account.username]
-            data['refresh'] = token
-            data['access'] = token.access_token
+            data['refresh'] = token.get('refresh')
+            data['access'] = token.get('access')
         else:
             return Response(serializer.errors)
         return Response(data, status=HTTP_201_CREATED)
