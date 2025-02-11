@@ -42,11 +42,7 @@ class RatingsCreate(generics.CreateAPIView):
             raise ValidationError("You have already rated this player")
         serializer.save(rating_user=self.request.user)
 
-# class PlayerRatings(generics.RetrieveAPIView):
-#     queryset = Ratings.objects.all()
-#     serializer_class = RatingsSerializer
-#     lookup_field = 'player_id'
-
-
-# class PlayerRating(generics.GenericAPIView):
-#     serializer_class = RatingsSerializer
+class PlayerDetail(generics.RetrieveUpdateAPIView):
+    queryset = Players.objects.all()
+    serializer_class = PlayersSerializer
+    lookup_field = 'pk'
