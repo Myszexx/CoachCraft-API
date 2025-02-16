@@ -1,15 +1,16 @@
+from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_403_FORBIDDEN, HTTP_200_OK
 
-from apps.core.models import AuthUser
-from apps.core.serializers import RegistrationSerializer, LoginSerializer
+from apps.core.models import UserData
+from apps.core.serializers import RegistrationSerializer, LoginSerializer, UserDataSerializer
 from apps.core.utils import get_tokens_for_user
 from rest_framework.response import Response
 
 class RegistrationV(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
-    queryset = AuthUser.objects.all()
+    queryset = User.objects.all()
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
@@ -34,7 +35,7 @@ class RegistrationV(generics.CreateAPIView):
 
 class LoginV(generics.RetrieveAPIView):
     serializer_class = LoginSerializer
-    queryset = AuthUser.objects.all()
+    queryset = User.objects.all()
     permission_classes = [AllowAny]
 
     def get_queryset(self):
@@ -47,14 +48,20 @@ class LoginV(generics.RetrieveAPIView):
             return Response(data, status=HTTP_403_FORBIDDEN)
         try:
             print(request.data)
-            account = AuthUser.objects.get(username=request.data['username'])
+            account = User.objects.get(username=request.data['username'])
             token = get_tokens_for_user(account)
             data['response'] = ['Login successful']
             data['email'] = [account.email]
             data['username'] = [account.username]
             data['user_id'] = [account.id]
             data['token'] = token
-        except AuthUser.DoesNotExist:
+        except User.DoesNotExist:
             data['error'] = "User does not exist"
             return Response(data, status=HTTP_403_FORBIDDEN)
         return Response(data, status=HTTP_200_OK)
+
+class UserDataV(generics.RetrieveAPIView):
+    queryset = UserData.objects.all()
+    # permission_classes = [IsAuthenticated]
+    serializer_class = UserDataSerializer
+    lookup_field = 'pk'

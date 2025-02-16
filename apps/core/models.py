@@ -1,18 +1,14 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
-class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.BooleanField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
-    date_joined = models.DateTimeField()
+
+class UserData(models.Model):
+    user = models.OneToOneField(User, models.DO_NOTHING, primary_key=True)
+    phone = models.CharField(max_length=1024, blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    avatar = models.CharField(max_length=1024, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'auth_user'
+        managed = True
+        db_table = 'user_data'

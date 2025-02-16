@@ -7,9 +7,10 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-from apps.core.views import RegistrationV, LoginV
+from apps.core.views import RegistrationV, LoginV, UserDataV
 
 urlpatterns = [
+    path('users_data/<int:pk>', UserDataV.as_view(), name='users_data'),
     path('registration/', RegistrationV.as_view(), name='registration'),
     path('login/', LoginV.as_view(), name='login'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

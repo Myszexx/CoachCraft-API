@@ -19,3 +19,7 @@ class TeamDetailsSerializer(serializers.ModelSerializer):
         model = TeamSquad
         fields = ["player_id","team_id"]
 
+class UserTeamsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teams
+        fields = '__all__'

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 # Create your models here.
 
@@ -41,7 +42,7 @@ class PlayersAffilations(models.Model):
 
 
 class UserTeams(models.Model):
-    user = models.ForeignKey("core.AuthUser", models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
     team = models.ForeignKey(Teams, models.DO_NOTHING)
 
     class Meta:

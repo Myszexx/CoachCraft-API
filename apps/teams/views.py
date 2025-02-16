@@ -43,4 +43,9 @@ class PlayersAffiliationsV(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PlayersAffilationsSerializer
     lookup_field = 'id'
 
+class UserTeamsV(generics.ListCreateAPIView):
+    serializer_class = TeamSerializer
 
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Teams.objects.filter(userteams__user_id=user_id)
