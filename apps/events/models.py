@@ -2,15 +2,30 @@ from django.db import models
 
 # Create your models here.
 
-class Matches(models.Model):
+class Events(models.Model):
+    EVENT_TYPES = (
+        ('match', 'Match'),
+        ('training', 'Training'),
+        ('custom', 'Custom')
+    )
+    event_type = models.CharField(max_length=1024, choices=EVENT_TYPES)
+    descritpion = models.TextField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    location = models.CharField(max_length=1024, blank=True, null=True)
+    duration = models.IntegerField(blank=True, null=True)
+
+
+    class Meta:
+        abstract = True
+
+class Matches(Events):
     home_team = models.ForeignKey('teams.Teams', models.DO_NOTHING, blank=True, null=True)
     home_team_name = models.CharField(max_length=1024, blank=True, null=True)
     away_team = models.ForeignKey('teams.Teams', models.DO_NOTHING, related_name='matches_away_team_set', blank=True, null=True)
     away_team_name = models.CharField(max_length=1024, blank=True, null=True)
-    timestamp = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'matches'
 
 
@@ -45,3 +60,32 @@ class MatchEventTypes(models.Model):
     class Meta:
         managed = False
         db_table = 'match_event_types'
+
+
+class Trainings(Events):
+    id = models.AutoField(primary_key=True)
+    team = models.ForeignKey("teams.Teams", models.DO_NOTHING)
+
+    class Meta:
+        managed = True
+        db_table = 'trainings'
+
+
+
+class TrainingSquad(models.Model):
+    appearance_id = models.AutoField(primary_key=True)
+    training = models.ForeignKey(Trainings, models.DO_NOTHING)
+    player = models.ForeignKey("players.Players", models.DO_NOTHING)
+
+    class Meta:
+        managed = True
+        db_table = 'training_squad'
+
+
+class CustomEvents(Events):
+    # id = models.AutoField(primary_key=True)
+    team = models.ForeignKey("teams.Teams", models.DO_NOTHING)
+
+    class Meta:
+        managed = True
+        db_table = 'custom_events'

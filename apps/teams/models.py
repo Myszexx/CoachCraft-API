@@ -38,25 +38,6 @@ class PlayersAffilations(models.Model):
 
 
 
-class Trainings(models.Model):
-    id = models.AutoField(primary_key=True)
-    team = models.ForeignKey("teams.Teams", models.DO_NOTHING)
-    timestamp = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'trainings'
-
-
-
-class TrainingSquad(models.Model):
-    appearance_id = models.AutoField(primary_key=True)
-    training = models.ForeignKey(Trainings, models.DO_NOTHING)
-    player = models.ForeignKey("players.Players", models.DO_NOTHING)
-
-    class Meta:
-        managed = True
-        db_table = 'training_squad'
 
 
 class UserTeams(models.Model):

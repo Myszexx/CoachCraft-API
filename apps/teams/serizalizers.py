@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-from apps.teams.models import Teams, Trainings, PlayersAffilations, TeamSquad
+from apps.teams.models import Teams, PlayersAffilations, TeamSquad
 
 
 class PlayersAffilationsSerializer(serializers.ModelSerializer):
@@ -18,9 +18,4 @@ class TeamDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamSquad
         fields = ["player_id","team_id"]
-
-class TrainingsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Trainings
-        fields = '__all__'
 

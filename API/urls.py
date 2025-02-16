@@ -23,7 +23,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('core/', include('apps.core.urls')),
     path('players/', include('apps.players.urls')),
-    path('matches/', include('apps.matches.urls')),
+    path('events/', include('apps.events.urls')),
     path('teams/', include('apps.teams.urls')),
     # path('players/', include('apps.players.urls')),
 ]

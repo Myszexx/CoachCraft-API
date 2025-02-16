@@ -27,8 +27,8 @@ class Players(models.Model):
     
 class Ratings(models.Model):
     rating_user = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
-    training = models.ForeignKey('teams.TrainingSquad', models.DO_NOTHING, blank=True, null=True)
-    match = models.ForeignKey('matches.Matches', models.DO_NOTHING, blank=True, null=True)
+    training = models.ForeignKey('events.TrainingSquad', models.DO_NOTHING, blank=True, null=True)
+    match = models.ForeignKey('events.Matches', models.DO_NOTHING, blank=True, null=True)
     player = models.ForeignKey(Players, models.DO_NOTHING)
     rating = models.IntegerField(blank=True, null=True)
 
