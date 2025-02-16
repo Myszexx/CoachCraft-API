@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  web:
+    image: python:3.10
+    container_name: coachcraft_api
+    command: bash -c "cd /app && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+#      - redis
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
+#      - REDIS_HOST=redis
+#      - REDIS_PORT=6379
+      - GRPC_SERVER_HOST=${GRPC_SERVER_HOST}
+      - GRPC_SERVER_PORT=${GRPC_SERVER_PORT}
+    networks:
+      - coachcraft_network
+
+  postgres:
+    image: postgres:15
+    container_name: coachcraft_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    networks:
+      - coachcraft_network
+
+#  redis:
+#    image: redis:7
+#    container_name: coachcraft_redis
+#    restart: always
+#    ports:
+#      - "6379:6379"
+#    networks:
+#      - coachcraft_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  coachcraft_network:
+    driver: bridge
