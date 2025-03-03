@@ -1,18 +1,14 @@
 import json
 import grpc
 from API.integrations.PFScrapper.scraper_pb2_grpc import ScraperServiceStub
-from API.integrations.PFScrapper.scraper_pb2 import ScraperRequest
+from  API.integrations.PFScrapper.scraper_pb2 import ScraperRequest
 
-class GRPCClient:
-    def __init__(self, config_file='API/integr_settings.json'):
-        with open(config_file, 'r') as file:
-            config = json.load(file)
-        self.host = config['PFScrapper'].get('grpc_host', 'localhost')
-        self.port = config['PFScrapper'].get('grpc_port', 50051)
-        self.channel = grpc.insecure_channel(f'{self.host}:{self.port}')
-        self.stub = ScraperServiceStub(self.channel)
+GRPC_SERVER_ADDRESS = "grpc_server:50051"
 
-    def get_data(self, request_data):
-        request = ScraperRequest(url=request_data)
-        response = self.stub.GetNinetyZPNs(request)
-        return response
+def get_ninety_teams(url):
+    """Funkcja wywołująca scraper przez gRPC."""
+    with grpc.insecure_channel(GRPC_SERVER_ADDRESS) as channel:
+        stub = ScraperServiceStub(channel)
+        request = ScraperRequest(url=url)
+        response = stub.GetNinetyTeams(request)
+    return response.data

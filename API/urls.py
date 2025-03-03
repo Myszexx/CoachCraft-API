@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('core/', include('apps.core.urls')),
+    path('integrations/', include('apps.integrations.urls')),
     path('players/', include('apps.players.urls')),
     path('events/', include('apps.events.urls')),
     path('teams/', include('apps.teams.urls')),
