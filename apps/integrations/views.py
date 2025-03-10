@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_206_PARTIAL_CONTENT
 
 from apps.events.utils import get_current_season
-from apps.integrations.models import ZPNs, Leagues
+from apps.integrations.models import ZPNs, Leagues, Table, Fixtures
 # from API.integrations.PFScrapper.grcp_client import GRPCClient as grcp
-from apps.integrations.serializers import ZPNsSerializer, LeaguesSerializer
+from apps.integrations.serializers import ZPNsSerializer, LeaguesSerializer, TableSerializer, FixturesSerializer
 
 
 # Create your views here.
@@ -48,7 +48,7 @@ class NinetyMinsListV(generics.CreateAPIView):
             case 'Leagues':
                 for item in data:
                     zpn_id = ZPNs.objects.filter(name=item['zpn']).first().id
-                    season = item['season'] if item['season'] else get_current_season()
+                    season = item['season'] if 'season' in item.keys() else get_current_season()
                     league = {
                         'name': item['name'],
                         'url': item['url'],
@@ -60,6 +60,45 @@ class NinetyMinsListV(generics.CreateAPIView):
                         Leagues.objects.update_or_create(**league)
                     else:
                         is_good = False
+            case 'Tables':
+                for item in data:
+                    league_id = Leagues.objects.filter(name=item['league']).first().id
+                    table = {
+                        'league_id': league_id,
+                        'team_name': item['name'],
+                        'team_url': item['url'],
+                        'matches': item['wins']+item['draws']+item['loses'],
+                        'wins': item['wins'],
+                        'draws': item['draws'],
+                        'losses': item['loses'],
+                        'goals_scored': item['goals_shot'],
+                        'goals_conceded': item['goals_conceded'],
+                        'points': item['points'],
+                        'position': item['standing']
+                    }
+                    serializer = TableSerializer(data=table)
+                    if serializer.is_valid():
+                        Table.objects.update_or_create(**table)
+                    else:
+                        is_good = False
+            case 'Fixtures':
+                for item in data:
+                    league_id = Leagues.objects.filter(name=item['league']).first().id
+                    fixture = {
+                        'league_id': league_id,
+                        'home_team': item['home_team'],
+                        'away_team': item['away_team'],
+                        'date': item['date'],
+                        'time': item['time']
+                    }
+                    serializer = FixturesSerializer(data=fixture)
+                    if serializer.is_valid():
+                        Fixtures.objects.update_or_create(**fixture)
+                    else:
+                        is_good = False
+
+
+
 
         if not is_good:
             return Response(status=HTTP_206_PARTIAL_CONTENT)

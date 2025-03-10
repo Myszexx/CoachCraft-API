@@ -24,6 +24,8 @@ class Leagues(LinkedList):
 
 class Table(LinkedList):
     league = models.ForeignKey(Leagues, on_delete=models.CASCADE)
+    team_name = models.CharField(max_length=255)
+    team_url = models.CharField(max_length=255)
     matches = models.IntegerField()
     wins = models.IntegerField()
     draws = models.IntegerField()
