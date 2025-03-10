@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.players',
     'apps.teams',
     'apps.events',
+    'apps.integrations',
     'corsheaders',
 ]
 

@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from apps.integrations.models import LinkedList
+from apps.integrations.models import LinkedList, ZPNs, Leagues
 
 
-class LinkedListSerializer(serializers.ModelSerializer):
+class ZPNsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LinkedList
-        fields = ('url', 'to')
+        model = ZPNs
+        fields = ('url', 'name')
+
+class LeaguesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Leagues
+        fields = ('zpn_id', 'url', 'name', 'season')

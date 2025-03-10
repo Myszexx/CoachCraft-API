@@ -23,4 +23,4 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 
 # Run the Django migrations and start the server
-CMD ["bash", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py migrate --fake-initial && python manage.py runserver 0.0.0.0:8000"]
