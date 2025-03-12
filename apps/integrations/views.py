@@ -22,8 +22,25 @@ from apps.integrations.serializers import ZPNsSerializer, LeaguesSerializer, Tab
 #
 #         return Response(data, status=HTTP_200_OK)
 
-class NinetyMinsListV(generics.CreateAPIView):
+class NinetyMinsListV(generics.ListCreateAPIView):
     permission_classes = [AllowAny]
+
+
+    def get(self, request, *args, **kwargs):
+        type = self.request.data['type']
+        filter = self.request.data['filter']
+        queryset = None
+        match type:
+            case 'ZPNs':
+                queryset = ZPNs.objects.all()
+                serializer = ZPNsSerializer(queryset, many=True)
+            case 'Leagues':
+                queryset = Leagues.objects.filter(zpn__leagues=filter)
+                serializer = LeaguesSerializer(queryset, many=True)
+            case 'Tables':
+                queryset = Table.objects.filter(league__table=filter)
+                serializer = TableSerializer(queryset, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
 
 
     def create(self, request, *args, **kwargs):

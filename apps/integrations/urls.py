@@ -7,5 +7,6 @@ from apps.integrations.views import NinetyMinsListV
 
 urlpatterns = [
 #90mins scrapper
-    path('90mins/ZPNs/', NinetyMinsListV.as_view(), name='NinetyMinsData'),
+    path('90mins/', NinetyMinsListV.as_view(), name='NinetyMinsData'),
+
 ]
