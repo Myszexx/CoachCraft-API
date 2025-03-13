@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_206_PARTIAL_CONTENT
+from django.db.models import Q
 
 from apps.events.utils import get_current_season
 from apps.integrations.models import ZPNs, Leagues, Table, Fixtures
@@ -27,21 +28,24 @@ class NinetyMinsListV(generics.ListCreateAPIView):
 
 
     def get(self, request, *args, **kwargs):
-        type = self.request.data['type']
-        filter = self.request.data['filter']
+        print(**kwargs)
+        type = request.query_params.get('type')
+        filter = request.query_params.get('filter')
         queryset = None
         match type:
             case 'ZPNs':
                 queryset = ZPNs.objects.all()
                 serializer = ZPNsSerializer(queryset, many=True)
             case 'Leagues':
-                queryset = Leagues.objects.filter(zpn__leagues=filter)
+                queryset = Leagues.objects.filter(zpn__name__contains=filter)
                 serializer = LeaguesSerializer(queryset, many=True)
             case 'Tables':
-                queryset = Table.objects.filter(league__table=filter)
+                queryset = Table.objects.filter(league__table__name__contains=filter)
                 serializer = TableSerializer(queryset, many=True)
+            case 'Fixtures':
+                queryset = Fixtures.objects.filter(Q(home_team__icontains=filter)|Q(away_team__icontains=filter))
+                serializer = FixturesSerializer(queryset, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
-
 
     def create(self, request, *args, **kwargs):
         data = request.data['data']
@@ -64,6 +68,7 @@ class NinetyMinsListV(generics.ListCreateAPIView):
                 return Response(status=HTTP_200_OK)
             case 'Leagues':
                 for item in data:
+                    print(item)
                     zpn_id = ZPNs.objects.filter(name=item['zpn']).first().id
                     season = item['season'] if 'season' in item.keys() else get_current_season()
                     league = {

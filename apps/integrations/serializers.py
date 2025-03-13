@@ -21,3 +21,4 @@ class FixturesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fixtures
         fields = ('league_id', 'home_team', 'away_team', 'date', 'time')
+

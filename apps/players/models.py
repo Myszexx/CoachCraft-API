@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Players(models.Model):
-    first_name = models.CharField(max_length=64, blank=True, null=True)
-    last_name = models.CharField(max_length=64, blank=True, null=True)
+    first_name = models.CharField(max_length=64, blank=True)
+    last_name = models.CharField(max_length=64, blank=True)
     country = models.CharField(max_length=5, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
 
@@ -14,8 +14,8 @@ class Players(models.Model):
         db_table = 'players'
 
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+    # def __str__(self):
+    #     return self.first_name + " " + self.last_name
 
 # class PlayerAffilation(models.Model):
 #     id = models.AutoField(primary_key=True)
