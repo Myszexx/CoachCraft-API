@@ -17,10 +17,12 @@ from apps.integrations.serializers import ZPNsSerializer, LeaguesSerializer, Tab
 class ZPNsListV(generics.ListCreateAPIView):
     queryset = ZPNs.objects.all()
     serializer_class = ZPNsSerializer
+    permission_classes = [AllowAny]
 
 class LeaguesListV(generics.ListCreateAPIView):
     queryset = Leagues.objects.all()
     serializer_class = LeaguesSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         queryset = Leagues.objects.all()
@@ -57,6 +59,7 @@ class LeaguesListV(generics.ListCreateAPIView):
 class TableListV(generics.ListCreateAPIView):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         queryset = Table.objects.all()
@@ -96,6 +99,7 @@ class TableListV(generics.ListCreateAPIView):
 class FixturesListV(generics.ListCreateAPIView):
     queryset = Fixtures.objects.all()
     serializer_class = FixturesSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         queryset = Fixtures.objects.all()

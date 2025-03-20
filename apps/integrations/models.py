@@ -5,6 +5,7 @@ from apps.events.utils import get_current_season
 class LinkedList(models.Model):
     url = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
+    last_update = models.DateTimeField(null=True, blank=True)
     
     class Meta:
         abstract = True
