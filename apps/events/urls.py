@@ -6,7 +6,6 @@ from apps.events.views import MatchListV, MatchDetailV, MatchSquadV, MatchEvents
 
 urlpatterns = [
     #EVENTS CORE section
-    path('all_eventes/<int:pk>', AllEventsListV.as_view(), name='all_events_list'),
     #MATCHES section
     path('matches/', MatchListV.as_view(), name='matches_list'),
     path('matches/details/<int:pk>',MatchDetailV.as_view(), name='match_details'),
